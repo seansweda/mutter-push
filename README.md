@@ -6,7 +6,6 @@ Mutter Push is a ZNC module that provides push notification capability to the Mu
 
 You can download the module from bitbucket:
 
-
 ```
 #!
 
