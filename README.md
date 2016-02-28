@@ -14,6 +14,7 @@ $ sudo apt-get instll python3-pip
 
 ```
 
+Install Requests which is a HTTP library used by Mutter:
 
 ```
 #!python
