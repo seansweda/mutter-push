@@ -2,7 +2,7 @@
 
 Mutter Push is a ZNC module that provides push notification capability to the Mutter IRC client.
 
-### Download Module ###
+### Download ###
 
 You can download the module from bitbucket:
 
