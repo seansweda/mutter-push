@@ -29,7 +29,7 @@ $ sudo apt-get instll python3-pip
 Install Requests which is a HTTP library used by Mutter:
 
 ```
-#!python
+#!
 
 $ sudo pip3 install requests
 ```
@@ -49,7 +49,7 @@ Load ModPython if not already loaded:
 Copy the Mutter ZNC module to your modules directory:
 
 ```
-#!python
+#!
 
 $ cp mutter.py ~/.znc/modules
 ```
@@ -58,7 +58,7 @@ Load the ZNC module:
 
 
 ```
-#!python
+#!
 
 /znc loadmod mutter
 ```
