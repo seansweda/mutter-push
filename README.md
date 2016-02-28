@@ -4,7 +4,9 @@ Mutter Push is a ZNC module that provides push notification capability to the Mu
 
 ### Download Module ###
 
+You can download the module from bitbucket:
 
+wget https://bitbucket.org/jmclough/mutter-push/raw/master/mutter.py
 
 ### Installation ###
 
