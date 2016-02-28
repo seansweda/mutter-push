@@ -16,7 +16,7 @@ cd mutter
 
 ### Prerequisites ###
 
-Install PIP which is a package management system used to install and manage software packages written in Python:
+Install PIP which is used to install and manage software packages written in Python:
 
 
 ```
