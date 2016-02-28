@@ -48,7 +48,7 @@ Load ModPython if not already loaded:
 ```
 #!
 
-/znc loaded modpython
+/znc loadmod modpython
 
 ```
 
