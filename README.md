@@ -1,6 +1,6 @@
 # README #
 
-Mutter Push is a ZNC module that provides push notification capability to the Mutter IRC client.
+Mutter Push is a ZNC module that will send notifications to Apple's Push Notification service for any messages or notices that match keywords configured in the Mutter IRC client settings.
 
 ### Download ###
 
