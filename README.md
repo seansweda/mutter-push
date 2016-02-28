@@ -14,7 +14,7 @@ unzip -d mutter -j master.zip
 cd mutter
 ```
 
-### Installation ###
+### Prerequisites ###
 
 Install PIP which is a package management system used to install and manage software packages written in Python:
 
@@ -34,14 +34,6 @@ Install Requests which is a HTTP library used by Mutter:
 $ sudo pip3 install requests
 ```
 
-Copy the Mutter ZNC module to your modules directory:
-
-
-```
-#!python
-
-$ cp mutter.py ~/.znc/modules
-```
 
 Load ModPython if not already loaded:
 
@@ -50,6 +42,16 @@ Load ModPython if not already loaded:
 
 /znc loadmod modpython
 
+```
+
+### Installation ###
+
+Copy the Mutter ZNC module to your modules directory:
+
+```
+#!python
+
+$ cp mutter.py ~/.znc/modules
 ```
 
 Load the ZNC module:
