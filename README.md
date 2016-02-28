@@ -1,6 +1,6 @@
 # README #
 
-Mutter Push is a ZNC module that will send notifications to Apple's Push Notification Service for any messages that match keywords in the client settings; this includes: private messages, private notices, channel messages, channel notices, and own nickname.
+Mutter Push is a ZNC module that will send notifications to Apple's Push Notification Service for any messages that match own nickname or keywords in the client settings; this includes: private messages, private notices, channel messages, and channel notices.
 
 The module is work in progress, but should be stable enough for every day use.  It has been tested against ZNC 1.6.x, but might work with previous versions.  Users are more than welcome to submit feature requests or patches for inclusion.
 
