@@ -2,6 +2,8 @@
 
 Mutter Push is a ZNC module that will send notifications to Apple's Push Notification Service for any messages that match keywords in the client settings; this includes: private messages, private notices, channel messages, channel notices, and own nickname.
 
+The module is work in progress, but should be stable enough for every day use.  Users are more than welcome to submit feature requests or patches for inclusion.
+
 ### Download ###
 
 You can download the module from bitbucket:
@@ -14,7 +16,7 @@ unzip -d mutter -j master.zip
 cd mutter
 ```
 
-### Prerequisites ###
+### Dependencies ###
 
 Install PIP which is used to install and manage software packages written in Python:
 
