@@ -43,6 +43,15 @@ Copy the Mutter ZNC module to your modules directory:
 $ cp mutter.py ~/.znc/modules
 ```
 
+Load ModPython if not already loaded:
+
+```
+#!
+
+/znc loaded modpython
+
+```
+
 Load the ZNC module:
 
 
