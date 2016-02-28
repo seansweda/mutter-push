@@ -1,4 +1,4 @@
-# README #
+# Mutter Push ZNC Module #
 
 Mutter Push is a ZNC module that will send notifications to Apple's Push Notification Service for any messages that match your own nickname or keywords in the client settings; this includes: private messages, private notices, channel messages, and channel notices.. 
 
