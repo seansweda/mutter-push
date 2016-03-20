@@ -44,6 +44,8 @@ class mutter(znc.Module):
 	description = "Mutter push notification module"
 	
 	networks = {}
+	
+	stripControlCodesRegex = re.compile("\x1d|\x1f|\x0f|\x02|\x03(?:\d{1,2}(?:,\d{1,2})?)?", re.UNICODE)
 
 	def mutter_state_file(self):
 		return "{0}/{1}".format(self.GetSavePath(), MUTTER_STATE_FILE)
@@ -99,9 +101,10 @@ class mutter(znc.Module):
 				for token in self.networks[network].keys():
 					if self.networks[network][token]["active"] == True:
 						for keyword in self.networks[network][token]["keywords"]:
-							if re.search(r'\b({0})\b'.format(keyword), message.s, re.IGNORECASE):
+							line = self.stripControlCodesRegex.sub('', message.s)
+							if re.search(r'\b({0})\b'.format(keyword), line, re.IGNORECASE):
 								version = self.networks[network][token]["version"]
-								alert = "{0}: {1}".format(nick.GetNick(), message.s)
+								alert = "{0}: {1}".format(nick.GetNick(), line)
 								self.send_notification(version, token, alert)
 								break
 		return znc.CONTINUE
