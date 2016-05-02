@@ -26,6 +26,12 @@
 #  limitations under the License.
 #
 
+# CHANGES BY EVAN
+# Add support for private messages and away_only
+# (1) 'sendAll' parameter in 'handle_message' to bypass regex match (for private messages)
+# (2) 'channel' parameter in 'handle_message' for passing channel notification for pings in channels (blank for private messages)
+# (3) 'IsIRCAway()' in 'handle_message' to only send notification if user marked away
+
 import json
 import os.path
 import re
@@ -38,18 +44,18 @@ MUTTER_STATE_FILE = "mutter.json"
 MUTTER_USER_AGENT = "MutterZNC/1.0"
 
 class mutter(znc.Module):
-	
+
 	module_types = [znc.CModInfo.GlobalModule]
-	
+
 	description = "Mutter push notification module"
-	
+
 	networks = {}
-	
+
 	stripControlCodesRegex = re.compile("\x1d|\x1f|\x0f|\x02|\x03(?:\d{1,2}(?:,\d{1,2})?)?", re.UNICODE)
 
 	def mutter_state_file(self):
 		return "{0}/{1}".format(self.GetSavePath(), MUTTER_STATE_FILE)
-		
+
 	def network_identifier(self):
 		return "{0}/{1}".format(self.GetNetwork().GetUser().GetUserName(), self.GetNetwork().GetName())
 
@@ -94,7 +100,8 @@ class mutter(znc.Module):
 							return True
 		return False
 
-	def handle_message(self, nick, message):
+	# Added channel and sendAll parameters
+	def handle_message(self, channel, nick, message, sendAll):
 		if not self.blocked_nick(nick):
 			network = self.network_identifier()
 			if network in self.networks:
@@ -102,13 +109,18 @@ class mutter(znc.Module):
 					if self.networks[network][token]["active"] == True:
 						for keyword in self.networks[network][token]["keywords"]:
 							line = self.stripControlCodesRegex.sub('', message.s)
-							if re.search(r'\b({0})\b'.format(keyword), line, re.IGNORECASE):
-								version = self.networks[network][token]["version"]
-								alert = "{0}: {1}".format(nick.GetNick(), line)
-								self.send_notification(version, token, alert)
-								break
+							# Added sendAll argument
+							if sendAll or re.search(r'\b({0})\b'.format(keyword), line, re.IGNORECASE):
+								if self.GetNetwork().IsIRCAway():
+									version = self.networks[network][token]["version"]
+									if channel:
+										alert = "{0}: <{1}> {2}".format(channel.GetName(), nick.GetNick(), line)
+									else:
+										alert = "<{0}> {1}".format(nick.GetNick(), line)
+									self.send_notification(version, token, alert)
+									break
 		return znc.CONTINUE
-							
+
 	def send_notification(self, version, token, alert):
 		session = requests.Session()
 		session.headers['User-Agent'] = MUTTER_USER_AGENT
@@ -135,24 +147,29 @@ class mutter(znc.Module):
 
 	def OnClientCapLs(self, pClient, ssCaps):
 		ssCaps.insert(MUTTER_PUSH_IRCV3_CAPABILITY)
-		
+
 	def IsClientCapSupported(self, pClient, sCap, bState):
-		return True if sCap == MUTTER_PUSH_IRCV3_CAPABILITY else False 
+		return True if sCap == MUTTER_PUSH_IRCV3_CAPABILITY else False
 
 	def OnUserRaw(self, line):
 		return self.handle_user_raw(line)
 
 	def OnUnknownUserRaw(self, line):
 		return self.handle_user_raw(line)
-	
+
+	# Added channel parameter for channel and 'False' for sendAll in message handler
 	def OnChanMsg(self, nick, channel, message):
-		return self.handle_message(nick, message)
-		
+		return self.handle_message(channel, nick, message, False)
+
+	# Added channel parameter for channel and 'False' for sendAll in message handler
 	def OnChanNotice(self, nick, channel, message):
-		return self.handle_message(nick, message)
-	
+		return self.handle_message(channel, nick, message, False)
+
+	# Added 'none' for channel to message handler and 'True' for sendAll
 	def OnPrivMsg(self, nick, message):
-		return self.handle_message(nick, message)
-		
+		return self.handle_message(None, nick, message, True)
+
+	# Added 'none' for channel to message handler and 'True' for sendAll
 	def OnPrivNotice(self, nick, message):
-		return self.handle_message(nick, message)
+		if not (message.s).startswith("***"):
+			return self.handle_message(None, nick, message, True)
