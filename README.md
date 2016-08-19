@@ -25,7 +25,7 @@ Install PIP which is used to install and manage software packages written in Pyt
 ```
 #!
 
-$ sudo apt-get instll python3-pip
+$ sudo apt-get install python3-pip
 
 ```
 
