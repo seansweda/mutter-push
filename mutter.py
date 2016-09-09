@@ -81,7 +81,7 @@ class mutter(znc.Module):
 				keyword = str(line).split(':',1)[1]
 				self.networks[network][token]["keywords"].append(keyword)
 			if command == "block" and len(tokens) == 4:
-				block = tokens[3].replace("*", ".*")
+				block = tokens[3].replace("*", "(.*?)")
 				self.networks[network][token]["blocks"].append(block)
 			if command == "end":
 				self.networks[network][token].update({ "active" : True })
