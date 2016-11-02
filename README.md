@@ -1,6 +1,6 @@
 # Mutter Push ZNC Module #
 
-Mutter Push is a ZNC module for the Mutter IRC client.  It will send notifications to Apple's Push Notification Service for any messages that match your own nickname or keywords in the client settings; this includes: private messages, private notices, channel messages, and channel notices. 
+Mutter Push is a ZNC module for the Mutter IRC client.  It will send notifications to Apple's Push Notification Service for any messages that match your own nickname or keywords in the client settings; this includes: private messages, private notices, channel messages, and channel notices. Note: notifications will only be sent if you are set to away.
 
 The module is work in progress, but should be stable enough for every day use.  It has been tested against ZNC 1.6 and is known to work with ZNC 1.4.  Users are more than welcome to submit feature requests or patches for inclusion.
 
