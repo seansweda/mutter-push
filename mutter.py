@@ -125,13 +125,16 @@ class mutter(znc.Module):
         session = requests.Session()
         session.headers['User-Agent'] = MUTTER_USER_AGENT
         payload = { 'version' : version, 'token' : token, 'alert' : alert }
-        response = session.post(MUTTER_SERVER_URL, verify=False, timeout=10, data=json.dumps(payload), headers={"content-type": "text/javascript"})
-        data = response.json()
-        if 'error' in data and 'code' in data['error']:
-            if data['error']['code'] == "200":
-                expired_token = data['error']['token']
-                self.remove_token_from_networks(expired_token)
-
+        try:
+            response = session.post(MUTTER_SERVER_URL, verify=False, timeout=10, data=json.dumps(payload), headers={"content-type": "text/javascript"})
+            data = response.json()
+            if 'error' in data and 'code' in data['error']:
+                if data['error']['code'] == "200":
+                    expired_token = data['error']['token']
+                    self.remove_token_from_networks(expired_token)
+        except requests.exceptions.RequestException as e:
+            self.PutModule("Error: {}".format(e))
+            
     def remove_token_from_networks(self, token):
         for network in self.networks.keys():
             if token in self.networks[network]:
