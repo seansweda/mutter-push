@@ -126,7 +126,7 @@ class mutter(znc.Module):
         session.headers['User-Agent'] = MUTTER_USER_AGENT
         payload = { 'version' : version, 'token' : token, 'alert' : alert }
         try:
-            response = session.post(MUTTER_SERVER_URL, verify=False, timeout=10, data=json.dumps(payload), headers={"content-type": "text/javascript"})
+            response = session.post(MUTTER_SERVER_URL, verify=False, timeout=30, data=json.dumps(payload), headers={"content-type": "text/javascript"})
             data = response.json()
             if 'error' in data and 'code' in data['error']:
                 if data['error']['code'] == "200":
