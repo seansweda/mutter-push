@@ -54,7 +54,7 @@ Copy the Mutter ZNC module to your modules directory:
 ```
 #!
 
-$ cp mutter.py ~/.znc/modules
+$ cp mutter.py ~/.znc/modules/
 ```
 
 Load the ZNC module:
