@@ -112,7 +112,7 @@ class mutter(znc.Module):
                         for keyword in self.networks[network][token]["keywords"]:
                             line = self.stripControlCodesRegex.sub('', message.s)
                             # Added sendAll argument
-                            if sendAll or re.search(r'\b({0})\b'.format(keyword), line, re.IGNORECASE):
+                            if sendAll or re.search(r'(?:[\s]|[^\w]|^)({0})(?=[\s]|[^\w]|$)'.format(re.escape(keyword)), line, re.IGNORECASE):
                                 if self.GetNetwork().IsIRCAway():
                                     version = self.networks[network][token]["version"]
                                     # Split title and body for formatting
