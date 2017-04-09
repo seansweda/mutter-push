@@ -165,6 +165,10 @@ class mutter(znc.Module):
         return self.handle_message(channel, nick, message, False)
 
     # Added channel parameter for channel and 'False' for sendAll in message handler
+    def OnChanAction(self, nick, channel, message):
+        return self.handle_message(channel, nick, message, False)
+
+    # Added channel parameter for channel and 'False' for sendAll in message handler
     def OnChanNotice(self, nick, channel, message):
         return self.handle_message(channel, nick, message, False)
 
@@ -172,6 +176,10 @@ class mutter(znc.Module):
     def OnPrivMsg(self, nick, message):
         return self.handle_message(None, nick, message, True)
 
+    # Added 'none' for channel to message handler and 'True' for sendAll
+    def OnPrivAction(self, nick, message):
+        return self.handle_message(None, nick, message, True)
+        
     # Added 'none' for channel to message handler and 'True' for sendAll
     def OnPrivNotice(self, nick, message):
         if not (message.s).startswith("***"):
