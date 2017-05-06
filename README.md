@@ -71,8 +71,7 @@ Load the ZNC module:
 
 The Mutter Push ZNC Server records the following items of data for logging and diagnostic purposes: 
 
-* Date
-* Time
+* Date/Time
 * IP address
 * APNS Token
 * HTTP Method
