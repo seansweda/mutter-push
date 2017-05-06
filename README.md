@@ -65,3 +65,8 @@ Load the ZNC module:
 
 /znc loadmod mutter
 ```
+
+
+### Privacy Policy ###
+
+The Mutter Push ZNC Server records the following items of data for logging and diagnostic purposes: date, time, IP address, APNS Token, HTTP Method, and Mutter Push protocol version number.
