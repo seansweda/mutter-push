@@ -160,7 +160,7 @@ class mutter(znc.Module):
     def IsClientCapSupported(self, pClient, sCap, bState):
         return True if sCap == MUTTER_PUSH_IRCV3_CAPABILITY else False
 
-    def OnUserRaw(self, client, line):
+    def OnUserRaw(self, line):
         return self.handle_user_raw(line)
 
     # Added channel parameter for channel and 'False' for sendAll in message handler
