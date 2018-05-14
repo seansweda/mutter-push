@@ -69,4 +69,4 @@ Load the ZNC module:
 
 ### Privacy Policy ###
 
-The Mutter Push ZNC Server records the date and time of each transaction.
+The Mutter Push ZNC Server records the date and time of each transaction in a log file. It also temporarily stores APNS tokens received from Apple to be expired by the ZNC Mutter Push Notification module.
