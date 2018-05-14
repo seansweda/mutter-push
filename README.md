@@ -69,7 +69,4 @@ Load the ZNC module:
 
 ### Privacy Policy ###
 
-The Mutter Push ZNC Server records the following items of data for logging and diagnostic purposes: 
-
-* Date/Time
-* APNS Token
+The Mutter Push ZNC Server records the date and time of each transaction.
