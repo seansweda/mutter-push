@@ -41,7 +41,7 @@ import requests
 import znc
 
 MUTTER_PUSH_IRCV3_CAPABILITY = "mutterirc.com/push"
-MUTTER_SERVER_URL = "https://api.mutterirc.com:8100"
+MUTTER_SERVER_URL = "https://api.mutterirc.com:7100"
 MUTTER_STATE_FILE = "mutter.json"
 MUTTER_USER_AGENT = "MutterZNC/1.0"
 
@@ -77,11 +77,15 @@ class mutter(znc.Module):
                 self.networks[network][token].update({ "active" : False })
                 self.networks[network][token].update({ "keywords" : [] })
                 self.networks[network][token].update({ "blocks" : [] })
+                self.networks[network][token].update({ "excludes" : [] })
             if command == "version" and len(tokens) == 4:
                 self.networks[network][token].update({ "version" : tokens[3]})
             if command == "keyword" and len(tokens) > 3:
                 keyword = str(line).split(':',1)[1]
                 self.networks[network][token]["keywords"].append(keyword)
+            if command == "exclude" and len(tokens) == 4:
+                channel = tokens[3]
+                self.networks[network][token]["excludes"].append(channel)
             if command == "block" and len(tokens) == 4:
                 block = tokens[3].replace("*", "(.*?)")
                 self.networks[network][token]["blocks"].append(block)
@@ -102,9 +106,19 @@ class mutter(znc.Module):
                             return True
         return False
 
+    def excluded_channel(self, channel):
+        network = self.network_identifier()
+        if network in self.networks:
+            for token in self.networks[network].keys():
+                if self.networks[network][token]["active"] == True:
+                    for exclude in self.networks[network][token]["excludes"]:
+                      if exclude == channel:
+                            return True
+        return False
+
     # Added channel and sendAll parameters
     def handle_message(self, channel, nick, message, sendAll):
-        if not self.blocked_nick(nick):
+        if not self.blocked_nick(nick) and not self.excluded_channel(channel):
             network = self.network_identifier()
             if network in self.networks:
                 for token in self.networks[network].keys():
