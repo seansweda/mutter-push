@@ -41,7 +41,7 @@ import requests
 import znc
 
 MUTTER_PUSH_IRCV3_CAPABILITY = "mutterirc.com/push"
-MUTTER_SERVER_URL = "https://api.mutterirc.com:7100"
+MUTTER_SERVER_URL = "https://api.mutterirc.com:8100"
 MUTTER_STATE_FILE = "mutter.json"
 MUTTER_USER_AGENT = "MutterZNC/1.0"
 
